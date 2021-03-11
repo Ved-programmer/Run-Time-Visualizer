@@ -38,3 +38,14 @@ Then once the getData function has returned the dictionary, we come back to the 
 
 
 <br>
+
+<font size = "4"> 
+
+> This project was made By Ved Rathi for a Timathon Code Jam
+
+
+***-Thank you***
+
+</font>
+
+
