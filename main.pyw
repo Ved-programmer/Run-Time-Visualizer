@@ -51,51 +51,89 @@ class RoundedButton(tk.Canvas):
         if self.command is not None:
             self.command()
 
+def createHeading(headingText, master, multiplier = 1):
+    # headingText = "Run Time Visualizer"
+    heading = Label(master, text = headingText, font = ("", int(getFontSize(WIDTH, headingText) * multiplier)), fg = "black", bg = "#008057")
+    heading.place(x = 0, y = 0, width = WIDTH, height = 15*hu)
+
+def createSubtitle(subtitleText, multiplier, yPosition, _height):
+    subtitle = Label(root, text = subtitleText, font = ("", getFontSize(WIDTH, subtitleText) * multiplier), fg = "white", bg = BACKGROUND)
+    subtitle.place(x = 0, y = yPosition, width = WIDTH, height = _height)
+
+def createButton(xPosition, text, func, buttonMaster = None, buttonWidth = None, yPosition = None, buttonHeight = None):
+    if buttonMaster is None:buttonMaster = root
+    if buttonWidth is None:buttonWidth = 40*wu
+    if buttonHeight is None:buttonHeight = 20*hu
+    if yPosition is None:yPosition = 75*hu
+
+    buttonForeGround = "#802D00"
+    aboutButton = RoundedButton(buttonMaster, BACKGROUND, buttonWidth, buttonHeight, text,  func, buttonForeGround)
+    aboutButton.place(x = xPosition, y = yPosition)
+
+def createBackButton(master, width, _x = 0, _y = 0):
+    Button(master, text = "Go Back", font = (" ", getFontSize(width, 7 * " ")), justify = "center", bg = "red", command = master.place_forget).place(x = _x, y = _y)
+
+
 def aboutProgram():
+    win = Frame(root, bg = BACKGROUND)
+    win.place(x = 0, y = 0, width = WIDTH, height = HEIGHT)
+
+    createHeading("About The Program", win, 0.8)
+    createBackButton(win, 17.5*wu, 0, 15*hu)
+
     print("This program is still under construction")
-    
+
+    win.mainloop()
 
 def createGraph(event = None):
     print("This program is still under construction")
 
-def main(root):
+
+
+def setDimensions(root):
     ctypes.windll.shcore.SetProcessDpiAwareness(2)
+    global WIDTH, HEIGHT, wu, hu
 
     WIDTH, HEIGHT = GetSystemMetrics(0)*5//7, GetSystemMetrics(1)*5//7
     wu = WIDTH/100
     hu = HEIGHT/100
     root.geometry(f"{WIDTH}x{HEIGHT}")
-    root.title("Run Time Visualizer")
 
+def setWindowSettings(root):
+    global BACKGROUND
+
+    root.title("Run Time Visualizer")
     algoExpertLogo = PhotoImage(file = 'algoExpertLogo.png')
     root.iconphoto(False, algoExpertLogo)
     BACKGROUND = "#020080"
     root.config(bg = BACKGROUND)
 
-    headingText = "Run Time Visualizer"
-    heading = Label(root, text = headingText, font = ("", getFontSize(WIDTH, headingText)), fg = "black", bg = "#008057")
-    heading.place(x = 0, y = 0, width = WIDTH, height = 15*hu)
+def createEntry(root):
+    global userFile
+
+    userFileWidth = int(WIDTH*9/10)
+    userFile = Entry(root,  font = ("", getFontSize(userFileWidth, " "*25)), background = "#03a7ff")
+    userFile.insert(0, "Enter Your File Name Here")
+    userFile.place(x = (WIDTH - userFileWidth)//2, y = 50*hu, width = userFileWidth, height = 20*hu)
+
+def main(root):
+
+    setDimensions(root)
+    setWindowSettings(root)
+
+    createHeading("Run Time Visualizer", root)
 
     subtitleText = """Please click the 'About Program' button to understand how this program works.
 Make sure to include the '.py' or '.pyw' extension when entering your file name. 
 The file should be in the same folder in which this program's files are kept.
 Once you have entered the file name, press the 'Create Graph' button."""
-    subtitle = Label(root, text = subtitleText, font = ("", getFontSize(WIDTH, subtitleText) * 6), fg = "white", bg = BACKGROUND)
-    subtitle.place(x = 0, y = 20*hu, width = WIDTH, height = 25*hu)
 
-    userFileWidth = int(WIDTH*9/10)
-    # print(userFileWidth, WIDTH)
-    userFile = Entry(root,  font = ("", getFontSize(userFileWidth, " "*25)), background = "#03a7ff")
-    userFile.insert(0, "Enter Your File Name Here")
-    userFile.place(x = (WIDTH - userFileWidth)//2, y = 50*hu, width = userFileWidth, height = 20*hu)
+    createSubtitle(subtitleText, 6, 20*hu, 25*hu)
 
-    buttonMaster, buttonBackground, buttonWidth, buttonHeight, buttonForeGround, yPosition = root, BACKGROUND, 40*wu, 20*hu, "#802D00", 75*hu
+    createEntry(root)
 
-    aboutButton = RoundedButton(buttonMaster, buttonBackground, buttonWidth, buttonHeight, "About Program",  aboutProgram, buttonForeGround)
-    aboutButton.place(x = 5*wu, y = yPosition)
-
-    nextButton = RoundedButton(buttonMaster, buttonBackground, buttonWidth, buttonHeight, "Create Graph", createGraph, buttonForeGround)
-    nextButton.place(x = 55*wu, y = yPosition)
+    createButton(5*wu, "aboutProgram", aboutProgram)
+    createButton(55*wu, "Create Graph", createGraph)
 
     root.bind("<Return>", createGraph)
 
@@ -110,3 +148,5 @@ if __name__ == '__main__':
     root = Tk()
     main(root)
     
+
+
