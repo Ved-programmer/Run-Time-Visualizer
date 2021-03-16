@@ -3,6 +3,7 @@ import generateGraph
 import ctypes
 from win32api import GetSystemMetrics
 import tkinter as tk
+import webbrowser
 
 class RoundedButton(tk.Canvas):
     def __init__(self, parent, bg, width, height, text, command=None, color = "red", textColor = "black", padding = 0, cornerradius = None):
@@ -56,8 +57,8 @@ def createHeading(headingText, master, multiplier = 1):
     heading = Label(master, text = headingText, font = ("", int(getFontSize(WIDTH, headingText) * multiplier)), fg = "black", bg = "#008057")
     heading.place(x = 0, y = 0, width = WIDTH, height = 15*hu)
 
-def createSubtitle(subtitleText, multiplier, yPosition, _height):
-    subtitle = Label(root, text = subtitleText, font = ("", getFontSize(WIDTH, subtitleText) * multiplier), fg = "white", bg = BACKGROUND)
+def createSubtitle(master, subtitleText, multiplier, yPosition, _height):
+    subtitle = Label(master, text = subtitleText, font = ("", getFontSize(WIDTH, subtitleText) * multiplier), fg = "white", bg = BACKGROUND)
     subtitle.place(x = 0, y = yPosition, width = WIDTH, height = _height)
 
 def createButton(xPosition, text, func, buttonMaster = None, buttonWidth = None, yPosition = None, buttonHeight = None):
@@ -76,17 +77,53 @@ def createBackButton(master, width, _x = 0, _y = 0):
 
 def aboutProgram():
     win = Frame(root, bg = BACKGROUND)
-    win.place(x = 0, y = 0, width = WIDTH, height = HEIGHT)
 
     createHeading("About The Program", win, 0.8)
     createBackButton(win, 17.5*wu, 0, 15*hu)
 
-    print("This program is still under construction")
+    subtitleText = """This Run Time Visualizer is made with python, it visualizes
+different run times of algorithms with different sizes of inputs, it can
+be used for estimating the Big O Notation of Algorithms. the user's python
+file should have a function named "main"(this function will be the algorithm
+whose time would be measured), the python file would also need to have a 
+dictionary named "inputTimes", the dictionary would need to have numbers 
+as the keys and any data-structure (list/tuples/integers/string etc.) as 
+a value, The data-structure in the dictionary values should be the 
+input for the function and the keys corresponding to each data-structure
+in the dictionary should be representing how large the data-structure is.
+"""
+
+    createSubtitle(win, subtitleText, 17, 25*hu, 55*hu)
+
+    createButton(wu*20, "view on github", lambda : webbrowser.open("https://github.com/Ved-programmer/Run-Time-Visualizer"), win, wu*60, 80*hu, 15*hu)
+
+
+    win.place(x = 0, y = 0, width = WIDTH, height = HEIGHT)
 
     win.mainloop()
 
 def createGraph(event = None):
-    print("This program is still under construction")
+    win = Frame(root, bg = BACKGROUND)
+
+    createHeading("Creating Graph", win, 0.8)
+    createBackButton(win, 17.5*wu, 0, 15*hu)
+    generateGraph.generateGraphFromFile(userFile.get())
+
+    subtitleText = """In some time, a new window would be created
+The new window would contain the run time
+graph of your Algorithm. This program was
+made by Ved Rathi for a timathon.
+"""
+
+    createSubtitle(win, subtitleText, 5, 30*hu, 50*hu)
+
+    createButton(wu*20, "Visit Ved's website", lambda : webbrowser.open("https://ved-programmer.github.io/Ved-programmer/"), win, wu*60, 80*hu, 15*hu)
+
+
+    win.place(x = 0, y = 0, width = WIDTH, height = HEIGHT)
+
+    win.mainloop()
+
 
 
 
@@ -128,11 +165,11 @@ Make sure to include the '.py' or '.pyw' extension when entering your file name.
 The file should be in the same folder in which this program's files are kept.
 Once you have entered the file name, press the 'Create Graph' button."""
 
-    createSubtitle(subtitleText, 6, 20*hu, 25*hu)
+    createSubtitle(root, subtitleText, 6, 20*hu, 25*hu)
 
     createEntry(root)
 
-    createButton(5*wu, "aboutProgram", aboutProgram)
+    createButton(5*wu, "About Program", aboutProgram)
     createButton(55*wu, "Create Graph", createGraph)
 
     root.bind("<Return>", createGraph)
