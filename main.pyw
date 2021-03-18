@@ -4,6 +4,8 @@ import ctypes
 from win32api import GetSystemMetrics
 import tkinter as tk
 import webbrowser
+from tkinter import messagebox 
+# from threading import Thread
 
 class RoundedButton(tk.Canvas):
     def __init__(self, parent, bg, width, height, text, command=None, color = "red", textColor = "black", padding = 0, cornerradius = None):
@@ -71,8 +73,13 @@ def createButton(xPosition, text, func, buttonMaster = None, buttonWidth = None,
     aboutButton = RoundedButton(buttonMaster, BACKGROUND, buttonWidth, buttonHeight, text,  func, buttonForeGround)
     aboutButton.place(x = xPosition, y = yPosition)
 
+def exitFunction(master):
+    master.quit()
+    master.place_forget()
+    
+
 def createBackButton(master, width, _x = 0, _y = 0):
-    Button(master, text = "Go Back", font = (" ", getFontSize(width, 7 * " ")), justify = "center", bg = "red", command = master.place_forget).place(x = _x, y = _y)
+    Button(master, text = "Go Back", font = (" ", getFontSize(width, 7 * " ")), justify = "center", bg = "red", command = lambda : exitFunction(master)).place(x = _x, y = _y)
 
 
 def aboutProgram():
@@ -103,28 +110,9 @@ in the dictionary should be representing how large the data-structure is.
     win.mainloop()
 
 def createGraph(event = None):
-    win = Frame(root, bg = BACKGROUND)
+    # messagebox.showinfo("graph generation", "The graph will be generated in a new window in some time, please click on ok to view the graph, the window might lag but after you close the graph it will come back to normal.")
 
-    createHeading("Creating Graph", win, 0.8)
-    createBackButton(win, 17.5*wu, 0, 15*hu)
     generateGraph.generateGraphFromFile(userFile.get())
-
-    subtitleText = """In some time, a new window would be created
-The new window would contain the run time
-graph of your Algorithm. This program was
-made by Ved Rathi for a timathon.
-"""
-
-    createSubtitle(win, subtitleText, 5, 30*hu, 50*hu)
-
-    createButton(wu*20, "Visit Ved's website", lambda : webbrowser.open("https://ved-programmer.github.io/Ved-programmer/"), win, wu*60, 80*hu, 15*hu)
-
-
-    win.place(x = 0, y = 0, width = WIDTH, height = HEIGHT)
-
-    win.mainloop()
-
-
 
 
 def setDimensions(root):
@@ -161,7 +149,7 @@ def main(root):
     createHeading("Run Time Visualizer", root)
 
     subtitleText = """Please click the 'About Program' button to understand how this program works.
-Make sure to include the '.py' or '.pyw' extension when entering your file name. 
+Don't include the '.py' or '.pyw' extension when entering your file name. 
 The file should be in the same folder in which this program's files are kept.
 Once you have entered the file name, press the 'Create Graph' button."""
 
