@@ -94,20 +94,21 @@ be used for estimating the Big O Notation of Algorithms. the user's python
 file should have a function named "main"(this function will be the algorithm
 whose time would be measured), the python file would also need to have a 
 dictionary named "inputTimes", the dictionary would need to have numbers 
-as the keys and any data-structure (list/tuples/integers/string etc.) as 
-a value, The data-structure in the dictionary values should be the 
-input for the function and the keys corresponding to each data-structure
-in the dictionary should be representing how large the data-structure is.
+as the keys and any data-structure (list/tuples/integers/string etc.) as a 
+value, The data-structure in the dictionary values should be the input for 
+the function and the keys corresponding to each data-structure in the dictionary 
+should be representing how large the data-structure is. A sample file has already
+ been made, try putting that in the program to see how the program works.
 """
 
-    createSubtitle(win, subtitleText, 17, 25*hu, 55*hu)
+    createSubtitle(win, subtitleText, 15, 25*hu, 55*hu)
 
-    createButton(wu*20, "view on github", lambda : webbrowser.open("https://github.com/Ved-programmer/Run-Time-Visualizer"), win, wu*60, 80*hu, 15*hu)
-
+    createButton(wu*20, "more explanation", lambda : webbrowser.open("https://github.com/Ved-programmer/Run-Time-Visualizer"), win, wu*60, 80*hu, 15*hu)
 
     win.place(x = 0, y = 0, width = WIDTH, height = HEIGHT)
 
     win.mainloop()
+
 
 def createGraph(event = None):
     # messagebox.showinfo("graph generation", "The graph will be generated in a new window in some time, please click on ok to view the graph, the window might lag but after you close the graph it will come back to normal.")
@@ -124,6 +125,7 @@ def setDimensions(root):
     hu = HEIGHT/100
     root.geometry(f"{WIDTH}x{HEIGHT}")
 
+
 def setWindowSettings(root):
     global BACKGROUND
 
@@ -133,6 +135,7 @@ def setWindowSettings(root):
     BACKGROUND = "#020080"
     root.config(bg = BACKGROUND)
 
+
 def createEntry(root):
     global userFile
 
@@ -140,6 +143,7 @@ def createEntry(root):
     userFile = Entry(root,  font = ("", getFontSize(userFileWidth, " "*25)), background = "#03a7ff")
     userFile.insert(0, "Enter Your File Name Here")
     userFile.place(x = (WIDTH - userFileWidth)//2, y = 50*hu, width = userFileWidth, height = 20*hu)
+
 
 def main(root):
 
@@ -173,5 +177,3 @@ if __name__ == '__main__':
     root = Tk()
     main(root)
     
-
-
