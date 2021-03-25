@@ -73,6 +73,7 @@ def createButton(xPosition, text, func, buttonMaster = None, buttonWidth = None,
     aboutButton = RoundedButton(buttonMaster, BACKGROUND, buttonWidth, buttonHeight, text,  func, buttonForeGround)
     aboutButton.place(x = xPosition, y = yPosition)
 
+
 def exitFunction(master):
     master.quit()
     master.place_forget()
@@ -113,7 +114,11 @@ should be representing how large the data-structure is. A sample file has alread
 def createGraph(event = None):
     # messagebox.showinfo("graph generation", "The graph will be generated in a new window in some time, please click on ok to view the graph, the window might lag but after you close the graph it will come back to normal.")
 
-    generateGraph.generateGraphFromFile(userFile.get())
+    try:
+        generateGraph.generateGraphFromFile(userFile.get())
+    except Exception as e:
+        messagebox.showinfo("graph generation", e)
+
 
 
 def setDimensions(root):
