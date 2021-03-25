@@ -112,11 +112,8 @@ should be representing how large the data-structure is. A sample file has alread
 
 def createGraph(event = None):
     # messagebox.showinfo("graph generation", "The graph will be generated in a new window in some time, please click on ok to view the graph, the window might lag but after you close the graph it will come back to normal.")
-    try:
-        generateGraph.generateGraphFromFile(userFile.get())
-    except:
-        userFile.insert(0, " Oops! Something went wrong !")
 
+    generateGraph.generateGraphFromFile(userFile.get())
 
 
 def setDimensions(root):
