@@ -56,7 +56,7 @@ it can be used for estimating the Big O Notation of Algorithms.
 
 <font size = "4"> 
 
-> This project was made By [Ved Rathi](https://ved-programmer.github.io/Ved-programmer/) for a Timathon Code Jam
+> This project was made By [Ved Rathi](https://ved-programmer.github.io) for a Timathon Code Jam
 
 
 ***-Thank you***
