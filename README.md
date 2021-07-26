@@ -43,7 +43,7 @@ NOTE : the program might lag a little when generating the graph. The best thing 
 
 <br>
 
-## <font size = "6"> What can it be used for ? </font>
+## <font size = "6"> What can it be used for? </font>
 
 <ul>
 
